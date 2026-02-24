@@ -1,50 +1,111 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
-func readNumber(prompt: String) -> Double {
-    print([prompt])
-    var returnValue = -1.0
-    guard let input = readLine(), let number = Double(input), number > 0 else {
-        print("Invalid number.")
-        return readNumber(prompt: prompt)
+func print(board: [[String]]) {
+    board.forEach { line in
+        print("\(line[0]) | \(line[1]) | \(line[2])")
+        print("--+---+--")
     }
-    returnValue = number
-    return returnValue
+    print()
+}
+
+func askForPosition(board: [[String]]) -> [Int] {
+    while true{
+        print("Please enter the row number 1-3:")
+        let userInput = readLine()!
+        let rowNumber = Int(userInput)! - 1
+
+        print("Please enter the column number 1-3: ")
+        let userInput2 = readLine()!
+        let columnNumber = Int(userInput2)! - 1
+
+        if board[rowNumber][columnNumber] == "." {
+            return [rowNumber, columnNumber]
+        }
+    }
 }
 
 @main
 struct SwiftPlayground {
     static func main() {
-        let maximumItemVolume = 2.0
+            var player = "O"
 
-        let roomLength = readNumber(prompt: "Enter the room length:")
-        let roomWidth = readNumber(prompt: "Enter the room width:")
-        let roomHeight = readNumber(prompt: "Enter the room height:")
+        var board = [
+            [".", ".", "."], // row 0
+            [".", ".", "."], // row 1
+            [".", ".", "."] // row 2
+        ]
+        print(board: board)
 
-let roomArea = roomWidth*roomLength
-print("Room area: \(roomArea)m²")
-// calculates the are of the room and prints it out
+        let turnsAmount = [ 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-let roomVolume = roomArea*roomHeight
-print("Room volume: \(roomVolume)m³")
-// calculates the volume of the room and prints it out
+        turnsAmount.forEach { number in
+        print("Turn \(number)")
+        //ask for user's move
+        let position = askForPosition(board:board)
+        board[position[0]][position[1]] = player
 
-print("Furniture:")
+        if player == "O" {
+            player = "X"
+        } else {
+            player = "O"
+        }
 
-let furnitureVolumes = [1.2, 0.8, 2.5, 0.6, 1.0]
-// stores volumes of funiture in constant 
-var totalFurnitureVolume = 0.0
-furnitureVolumes.enumerated().forEach { index, volume in
-print("Item \(index + 1): \(volume)m³") 
-// prints out the volume of each item of furniture
-if volume > maximumItemVolume {
-    print("Oversized item detected.")
-    //checks if the volume of an item is larger than the max, and if it is, prints a warning
-}
+        print(board: board)
+        print("Player \(player)'s turn:")
+    }
 
-totalFurnitureVolume = totalFurnitureVolume + volume
-}
-let usableVolume = roomVolume - totalFurnitureVolume
-print("Usable volume: \(usableVolume)m³")
-        
+    print("Game Over!")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // // first move: O in middle
+        // board[1][1] = "O" 
+        // print(board: board)
+
+        // // second move: X in top left
+        // board[0][0] = "X" 
+        // print(board: board)
+
+        // // third move: O in top right
+        // board[0][2] = "O" 
+        // print(board: board)
+
+        // // forth move: X in bottom left
+        // board[2][0] = "X" 
+        // print(board: board)
+
+        // // fifth move: O in middle left
+        // board[1][0] = "O" 
+        // print(board: board)
+
+        // // sixth move: X in middle right
+        // board[1][2] = "X" 
+        // print(board: board)
+
+        // // seventh move: O in bottom middle
+        // board[2][1] = "O" 
+        // print(board: board)
+
+        // // eighth move: X in bottom right
+        // board[2][2] = "X" 
+        // print(board: board)
+
+        // // final move: O in top middle
+        // board[0][1] = "O" 
+        // print(board: board)
+
+        // print("The Winner is: O")
+
 }}
