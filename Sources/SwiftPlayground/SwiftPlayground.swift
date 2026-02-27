@@ -24,6 +24,11 @@ func sellEggs(currentStock: Int, amount: Int) -> Int {
     return currentStock - amount
 }
 
+func updateSoldCount(currentSold: Int, amount: Int) -> Int {
+    return currentSold + amount
+}
+
+
 
 
 @main
@@ -41,58 +46,103 @@ struct SwiftPlayground {
         while menuNeeded == "true" {
             menuChoice()
             var userInput = readLine()!
-            var userChoice = Int(userInput)
-            // calls function to print menu and asks user to select an option. stores input in variable
+            let userChoice = Int(userInput)
+
+
                 if userChoice == 1 {
-                    
-                
+
                     print("How many eggs would you like to add?")
                         userInput = readLine()!
                         eggsAdded = Int(userInput)!
-                            if eggsAdded >= 0, eggsAdded <= 100 {
+
+                            if eggsAdded >= 0 && eggsAdded <= 100 {
                             eggsInStock = addEggs(currentStock: eggsInStock, amount: eggsAdded) 
                             totalEggsAdded = totalEggsAdded + eggsAdded
                             
-                        } else if eggsAdded > 100 && eggsAdded < 0 {
-                            print("Too many eggs added at once. Please input a smaller number.")
-                            userInput = readLine()!
-                            eggsAdded = Int(userInput)!
-                        } else if eggsAdded < 0 {
-                            print("You cannot add a negative amount of eggs, theres a Sell eggs option for that. Please re-enter a valid number.")
-                            userInput = readLine()!
-                            eggsAdded = Int(userInput)!
-                        } else {
-                            invalidInput()
-                            userInput = readLine()!
-                            eggsAdded = Int(userInput)!}
+                            } else if eggsAdded > 100 {
+                                
+                                print("Too many eggs added at once. Please input a smaller number.")
+                                userInput = readLine()!
+                                eggsAdded = Int(userInput)!
+
+                                eggsInStock = addEggs(currentStock: eggsInStock, amount: eggsAdded) 
+                                
+
+                            } else if eggsAdded < 0 {
+                                
+                                print("You cannot add a negative amount of eggs, there is a 'Sell eggs' option for that. Please re-enter a valid number.")
+                                userInput = readLine()!
+                                eggsAdded = Int(userInput)!
+                                eggsInStock = addEggs(currentStock: eggsInStock, amount: eggsAdded) 
+                                
+                                
+
+                            } else {
+                                invalidInput()
+                                userInput = readLine()!
+                                eggsAdded = Int(userInput)!
+                                eggsInStock = addEggs(currentStock: eggsInStock, amount: eggsAdded) 
+                                
+                            }
 
                         
-                    } else if userChoice == 2 {
+                } else if userChoice == 2 {
                     print("How many eggs would you like to sell?")
                         userInput = readLine()!
                         eggsSold = Int(userInput)!
+
+                            if eggsSold >= 0 && eggsSold <= eggsInStock {
                             eggsInStock = sellEggs(currentStock: eggsInStock, amount: eggsSold)
-                            totalEggsSold = totalEggsSold + eggsSold
-                    // if user chooses to sell eggs, it will ask them to input an amount and will remove this from the amount of eggs in stock
+                            totalEggsSold = updateSoldCount(currentSold: totalEggsSold, amount: eggsSold)
+
+                            } else if eggsSold < 0 {
+                                
+                                print("You cannot sell a negative amount of eggs, there is an 'Add eggs' option for that. Please re-enter a valid number.")
+                                userInput = readLine()!
+                                eggsSold = Int(userInput)!
+                                eggsInStock = sellEggs(currentStock: eggsInStock, amount: eggsSold)
+                                totalEggsSold = updateSoldCount(currentSold: totalEggsSold, amount: eggsSold)
+
+                            } else if eggsSold > eggsInStock {
+                                
+                                print("You cannot sell \(userInput) eggs because there are only \(eggsInStock) eggs in stock. Please re-enter a valid number.")
+                                userInput = readLine()!
+                                eggsSold = Int(userInput)!
+                                eggsInStock = sellEggs(currentStock: eggsInStock, amount: eggsSold)
+                                totalEggsSold = updateSoldCount(currentSold: totalEggsSold, amount: eggsSold)
+
+                            } else {
+                                invalidInput()
+                                userInput = readLine()!
+                                eggsSold = Int(userInput)!
+                                eggsInStock = sellEggs(currentStock: eggsInStock, amount: eggsSold)
+                                totalEggsSold = updateSoldCount(currentSold: totalEggsSold, amount: eggsSold)
+                            }
+
+                    
 
                 } else if userChoice == 3 {
+                    if eggsInStock < 0 {
+                        eggsInStock = 0
+                    }
                     print("There are currently \(eggsInStock) eggs in stock.")
-                    // if user chooses to show current stock, it will print it out
+
 
                 } else if userChoice == 4 {
                     print("\(totalEggsSold) eggs have been sold.")
-                    // if user chooses to see how many eggs have been sold, it will print out the total
+                    
 
                 } else if userChoice == 5 {
                     print("☆⭒Thank you for using Egg Shop.⭒☆")
                     print("𝘊𝘭𝘰𝘴𝘪𝘯𝘨 𝘗𝘳𝘰𝘨𝘳𝘢𝘮...")
                     menuNeeded = "false"
-                    // if user chooses to exit the program, the while loop will end and the program will finish
+                    
 
                 } else {
                     invalidInput() 
-                    // if user inputs an invalid option,it will ask them to reinput and will go back to the start of the while loop to show the menu again
+                    
                 }
             
         }
-}}
+    }
+}
