@@ -133,3 +133,4 @@ func remainingShips(in ocean: [[String]], guesses: [[String]]) -> Int {
 
 return shipsCount - hitCount
 }
+
