@@ -61,7 +61,7 @@ struct SwiftPlayground {
 
         print("Enter Amount: ", terminator: "")
         let amountInput = readLine()!
-        if let amountInput = amountInput as? String {
+        if let amountInput = input as? String {
             let amountInput = readLine()!
         }
         let amount = Double(amountInput)!
