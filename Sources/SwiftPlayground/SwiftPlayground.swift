@@ -1,50 +1,50 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
-func readNumber(prompt: String) -> Double {
-    print([prompt])
-    var returnValue = -1.0
-    guard let input = readLine(), let number = Double(input), number > 0 else {
-        print("Invalid number.")
-        return readNumber(prompt: prompt)
-    }
-    returnValue = number
-    return returnValue
-}
+import Foundation 
 
 @main
 struct SwiftPlayground {
     static func main() {
-        let maximumItemVolume = 2.0
+        // Constants and variables
 
-        let roomLength = readNumber(prompt: "Enter the room length:")
-        let roomWidth = readNumber(prompt: "Enter the room width:")
-        let roomHeight = readNumber(prompt: "Enter the room height:")
+        ///Each inner array contains the English word, the correct answer in the target language,
+        /// and then three incorrect answers
+        var vocabulary = [
+            ["Hello",       "Hola",        "Adios",    "Hasta luego",   "Chao"],
+            ["Goodbye",     "Adios",       "Este",     "Como estas",    "Buenas noches"],
+            ["Thank you",   "Gracias",     "Muy bien", "Y tu",          "Estoy cansado"],
+            ["Goodmorning", "Buenas dias", "Azucar",   "Buenas tardes", "Hasta la vista"],
+            ["How are you", "Como estas",   "Que tal", "Aqui",          "Por que"]
+        ]
 
-let roomArea = roomWidth*roomLength
-print("Room area: \(roomArea)m²")
-// calculates the are of the room and prints it out
+        /// The indices of the questions that the user got wrong
+        var incorrectIndices: [Int] = []
 
-let roomVolume = roomArea*roomHeight
-print("Room volume: \(roomVolume)m³")
-// calculates the volume of the room and prints it out
+        /// The number of questions that the user got wrong the first time around
+        var incorrectCount = 0
 
-print("Furniture:")
+        /// The number of questions that have been asked
+        var count = 0
 
-let furnitureVolumes = [1.2, 0.8, 2.5, 0.6, 1.0]
-// stores volumes of funiture in constant 
-var totalFurnitureVolume = 0.0
-furnitureVolumes.enumerated().forEach { index, volume in
-print("Item \(index + 1): \(volume)m³") 
-// prints out the volume of each item of furniture
-if volume > maximumItemVolume {
-    print("Oversized item detected.")
-    //checks if the volume of an item is larger than the max, and if it is, prints a warning
-}
-
-totalFurnitureVolume = totalFurnitureVolume + volume
-}
-let usableVolume = roomVolume - totalFurnitureVolume
-print("Usable volume: \(usableVolume)m³")
+        vocabulary.shuffle()
         
-}}
+
+        // loop until all of the vocabulary questions have been asked
+        while count < vocabulary.count {
+            // Show the question
+            print("Translate ____ to Spanish:")
+            
+
+            // Present the possible answers
+
+            // Check if user guessed the correct answer
+            // If not, make a note of the question to ask again later
+            
+        } 
+
+        
+
+        
+    }
+}
