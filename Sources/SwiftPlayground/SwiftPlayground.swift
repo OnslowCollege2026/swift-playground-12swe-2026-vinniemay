@@ -62,12 +62,20 @@ struct SwiftPlayground {
         print("Enter Amount: ", terminator: "")
         let amountInput = readLine()!
         let amount = Double(amountInput)!
-        
+        if amount <= 0 {
+            guestList.append([nameInput, String(amount)])
+            print("Added \(nameInput).")
+        } else {
+            print("Invalid input. Please re-enter with a valid number.")
+            let amountInput = readLine()!
+            let amount = Double(amountInput)!
+            guestList.append([nameInput, String(amount)])
+            print("Added \(nameInput).")
+        }
 
         
 
-        guestList.append([nameInput, String(amount)])
-        print("Added \(nameInput).")
+        
     }
 
     printTierList(guestList)
