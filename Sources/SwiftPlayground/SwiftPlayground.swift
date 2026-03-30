@@ -6,11 +6,11 @@ import Foundation
     let rankLabels = ["F Tier", "D Tier", "C Tier", "B Tier", "A Tier", "S Tier"]
 
     func rankIndex(from amount: Double) -> Int {
-        if amount >= 250 { return 0 } // Should be S
-        if amount >= 100 { return 1 } // Should be A
+        if amount >= 250 { return 4 } // Should be S
+        if amount >= 100 { return 3 } // Should be A
         if amount >= 50  { return 2 }
-        if amount >= 25  { return 3 }
-        if amount >= 10  { return 4 }
+        if amount >= 25  { return 1 }
+        if amount >= 10  { return 0 }
         return 5 // Should be F
     }
 
