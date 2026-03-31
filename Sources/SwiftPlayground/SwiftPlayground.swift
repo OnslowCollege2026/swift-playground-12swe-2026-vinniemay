@@ -10,7 +10,7 @@ struct SwiftPlayground {
 
         ///Each inner array contains the English word, the correct answer in the target language,
         /// and then three incorrect answers
-        var vocabulary = [
+        let vocabulary: [[String]] = [
             ["Hello",       "Hola",        "Adios",    "Hasta luego",   "Chao"],
             ["Goodbye",     "Adios",       "Este",     "Como estas",    "Buenas noches"],
             ["Thank you",   "Gracias",     "Muy bien", "Y tu",          "Estoy cansado"],
@@ -18,33 +18,60 @@ struct SwiftPlayground {
             ["How are you", "Como estas",   "Que tal", "Aqui",          "Por que"]
         ]
 
-        /// The indices of the questions that the user got wrong
-        var incorrectIndices: [Int] = []
+        var counter = 0
+        var score = 0
+        var incorrectAnswerIndices: [Int] = []
 
-        /// The number of questions that the user got wrong the first time around
-        var incorrectCount = 0
+        while counter < vocabulary.count {
+            let englishWord = vocabulary[counter][0]
+            let correctWord = vocabulary[counter][1]
+            let allAnswers = vocabulary[counter].dropFirst().shuffled()
 
-        /// The number of questions that have been asked
-        var count = 0
 
-        vocabulary.shuffle()
-        
+            print("Please translate '\(englishWord)'")
+            allAnswers.forEach { answer in
+            print("⟡ \(answer)")
+            }
 
-        // loop until all of the vocabulary questions have been asked
-        while count < vocabulary.count {
-            // Show the question
-            print("Translate ____ to Spanish:")
-            
+            if let userInput = readLine(), userInput.lowercased() == correctWord.lowercased() {
+                score = score + 1
+                print("'\(correctWord)' is correct!")
+            } else {
+                incorrectAnswerIndices.append(counter)
+                print("Incorrect! The correct answer is '\(correctWord)'")
+            }
 
-            // Present the possible answers
+            counter = counter + 1
+        }
 
-            // Check if user guessed the correct answer
-            // If not, make a note of the question to ask again later
-            
-        } 
+        while incorrectAnswerIndices.count > 0 {
+            let index = incorrectAnswerIndices[0]
 
-        
+            let englishWord = vocabulary[index][0]
+            let correctWord = vocabulary[index][1]
+            let allAnswers = vocabulary[index].dropFirst().shuffled()
 
-        
+            print("Please translate '\(englishWord)'")
+            allAnswers.forEach { answer in
+            print("⟡ \(answer)")
+            }
+
+            if let userInput = readLine(), userInput.lowercased() == correctWord.lowercased() {
+                incorrectAnswerIndices.removeFirst()
+                print("'\(correctWord)' is correct!")
+            } else {
+                print("Incorrect! The correct answer is '\(correctWord)'")
+            }
+        }
+
+        print("You have a score of \(score)/\(vocabulary.count)")
+        if Double(score) >= Double(vocabulary.count / 2) {
+            print("Congratulations!") 
+        } else {
+            print("Try again next time!")
+        }
+
     }
-}
+
+} 
+    
