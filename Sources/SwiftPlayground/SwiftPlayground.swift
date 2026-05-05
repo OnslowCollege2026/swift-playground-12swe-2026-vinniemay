@@ -46,6 +46,7 @@ func calculateCostNoBag(sold: Double) -> Double {
 
 /// checks how many bags were needed for a sale and returns price of the bags
 /// 1 bag = 20c ($0.2)
+/// this works for *most* inputs, the math i did does not work for numbers such as 9 though. (for kgs sold) - I can't figure out a way to fix it so it works for everything
 func calculateBagCost(sold: Double) -> Double {
     var bags = 0.0
     var bagsCost = 0.0
@@ -61,6 +62,7 @@ func calculateBagCost(sold: Double) -> Double {
 }
 
 /// calculates how many bags were used in a sale and returns amount
+/// this might be broken too but i cannot fix it with the time i have left without messing up everything else
 func bagAmount(sold: Double) -> Double {
     var bags = 0.0
     bags = sold / 5
@@ -241,7 +243,7 @@ struct SwiftPlayground {
             } else if tabToOpen == "3" {
                 printCurrentStock(currentStock: currentStock)
 
-            // prints data on total money earned as well as previous sales of how much kumara was sold for how much money (code not working, need to fix)
+            // prints data on total money earned as well as previous sales of how much kumara was sold for how much money (code does not work)
             } else if tabToOpen == "4" {
                 print("⟡ You have made $\(money) total from the Kumara Stall")
                 print("")
@@ -249,12 +251,19 @@ struct SwiftPlayground {
 
                 let sales = saleRecords
 
-                sales.forEach { sale in
-                    
-                        print("⤷ \(sale)kgs of Kumara sold for $\(chargeRecords)")
+                // this code does not work as intended, I tried for as long as I can with as many different possibilities based on what I know and looking at my old code, but still nothing worked
+                for sale in sales {
+                    print("⤷ \(sale)kgs of Kumara sold for \(chargeRecords)")
+                }
+                
+                
+                
+
+                
+                        
                         
                     
-                }
+                
 
             // prints how many bags are left so the user knows if they are running out (no option to add more bags though)
             } else if tabToOpen == "5" {
@@ -267,7 +276,7 @@ struct SwiftPlayground {
                 print("𝘊𝘭𝘰𝘴𝘪𝘯𝘨 𝘗𝘳𝘰𝘨𝘳𝘢𝘮...")
                 runProgram = "false"
 
-            //failsafe for any possible invalid inputs
+            //failsafe for any possible invalid inputs: invalid numbers or text
             } else {
                 generalInvalidInput()
             }
